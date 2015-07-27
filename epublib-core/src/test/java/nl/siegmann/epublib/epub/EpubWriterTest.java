@@ -71,7 +71,7 @@ public class EpubWriterTest {
 	    InputStream is1 = this.getClass().getResourceAsStream("/book1/chapter1.html");
 	    book.addSection("Introduction", new Resource(is1, "chapter1.html"));
 	
-	    EpubWriter epubWriter = new EpubWriter();
+	    Epub2Writer epubWriter = new Epub2Writer();
 	    epubWriter.write(book, new FileOutputStream("test1_book1.epub"));
 	}
 	
@@ -96,7 +96,7 @@ public class EpubWriterTest {
 	
 
 	private byte[] writeBookToByteArray(Book book) throws IOException {
-		EpubWriter epubWriter = new EpubWriter();
+		Epub2Writer epubWriter = new Epub2Writer();
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		epubWriter.write(book, out);

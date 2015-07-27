@@ -41,7 +41,7 @@ public class Simple1 {
             book.addSection("Conclusion", new Resource(Simple1.class.getResourceAsStream("/book1/chapter3.html"), "chapter3.html"));
 
             // Create EpubWriter
-            EpubWriter epubWriter = new EpubWriter();
+            Epub2Writer epubWriter = new Epub2Writer();
 
             // Write the Book as Epub
             epubWriter.write(book, new FileOutputStream("test1_book1.epub"));

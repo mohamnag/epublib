@@ -15,7 +15,7 @@ import nl.siegmann.epublib.util.StringUtil;
 
 import org.xmlpull.v1.XmlSerializer;
 
-public class PackageDocumentMetadataWriter extends PackageDocumentBase {
+public class Epub2PackageDocumentMetadataWriter extends PackageDocumentBase {
 
 	
 	/**
@@ -88,15 +88,15 @@ public class PackageDocumentMetadataWriter extends PackageDocumentBase {
 		// write coverimage
 		if(book.getCoverImage() != null) { // write the cover image
 			serializer.startTag(NAMESPACE_OPF, OPFTags.meta);
-			serializer.attribute(EpubWriter.EMPTY_NAMESPACE_PREFIX, OPFAttributes.name, OPFValues.meta_cover);
-			serializer.attribute(EpubWriter.EMPTY_NAMESPACE_PREFIX, OPFAttributes.content, book.getCoverImage().getId());
+			serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.name, OPFValues.meta_cover);
+			serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.content, book.getCoverImage().getId());
 			serializer.endTag(NAMESPACE_OPF, OPFTags.meta);
 		}
 
 		// write generator
 		serializer.startTag(NAMESPACE_OPF, OPFTags.meta);
-		serializer.attribute(EpubWriter.EMPTY_NAMESPACE_PREFIX, OPFAttributes.name, OPFValues.generator);
-		serializer.attribute(EpubWriter.EMPTY_NAMESPACE_PREFIX, OPFAttributes.content, Constants.EPUBLIB_GENERATOR_NAME);
+		serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.name, OPFValues.generator);
+		serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.content, Constants.EPUBLIB_GENERATOR_NAME);
 		serializer.endTag(NAMESPACE_OPF, OPFTags.meta);
 		
 		serializer.endTag(NAMESPACE_OPF, OPFTags.metadata);
@@ -133,7 +133,7 @@ public class PackageDocumentMetadataWriter extends PackageDocumentBase {
 		}
 		
 		serializer.startTag(NAMESPACE_DUBLIN_CORE, DCTags.identifier);
-		serializer.attribute(EpubWriter.EMPTY_NAMESPACE_PREFIX, DCAttributes.id, BOOK_ID_ID);
+		serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, DCAttributes.id, BOOK_ID_ID);
 		serializer.attribute(NAMESPACE_OPF, OPFAttributes.scheme, bookIdIdentifier.getScheme());
 		serializer.text(bookIdIdentifier.getValue());
 		serializer.endTag(NAMESPACE_DUBLIN_CORE, DCTags.identifier);

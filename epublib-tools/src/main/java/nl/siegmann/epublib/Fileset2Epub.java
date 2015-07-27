@@ -16,7 +16,7 @@ import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.epub.BookProcessor;
 import nl.siegmann.epublib.epub.BookProcessorPipeline;
 import nl.siegmann.epublib.epub.EpubReader;
-import nl.siegmann.epublib.epub.EpubWriter;
+import nl.siegmann.epublib.epub.Epub2Writer;
 import nl.siegmann.epublib.fileset.FilesetBookCreator;
 import nl.siegmann.epublib.util.VFSUtil;
 
@@ -66,7 +66,7 @@ public class Fileset2Epub {
 		}
 		BookProcessorPipeline epubCleaner = new DefaultBookProcessorPipeline();
 		epubCleaner.addBookProcessors(createBookProcessors(bookProcessorClassNames));
-		EpubWriter epubWriter = new EpubWriter(epubCleaner);
+		Epub2Writer epubWriter = new Epub2Writer(epubCleaner);
 		if(! StringUtils.isBlank(xslFile)) {
 			epubCleaner.addBookProcessor(new XslBookProcessor(xslFile));
 		}

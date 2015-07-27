@@ -25,7 +25,7 @@ public class EpubReaderTest {
 				"/book1/cover.png"), "cover.png"));
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		(new EpubWriter()).write(book, out);
+		(new Epub2Writer()).write(book, out);
 		byte[] epubData = out.toByteArray();
 		Book readBook = new EpubReader().readEpub(new ByteArrayInputStream(
 				epubData));
@@ -43,7 +43,7 @@ public class EpubReaderTest {
 		book.generateSpineFromTableOfContents();
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		(new EpubWriter()).write(book, out);
+		(new Epub2Writer()).write(book, out);
 		byte[] epubData = out.toByteArray();
 		Book readBook = new EpubReader().readEpub(new ByteArrayInputStream(
 				epubData));
@@ -63,7 +63,7 @@ public class EpubReaderTest {
 		book.generateSpineFromTableOfContents();
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		(new EpubWriter()).write(book, out);
+		(new Epub2Writer()).write(book, out);
 		byte[] epubData = out.toByteArray();
 		Book readBook = new EpubReader().readEpub(new ByteArrayInputStream(
 				epubData));

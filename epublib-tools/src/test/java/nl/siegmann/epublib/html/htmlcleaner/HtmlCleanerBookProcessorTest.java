@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 import nl.siegmann.epublib.Constants;
-import nl.siegmann.epublib.bookprocessor.HtmlCleanerBookProcessor;
+import nl.siegmann.epublib.bookprocessor.Epub2HtmlCleanerBookProcessor;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.service.MediatypeService;
@@ -18,7 +18,7 @@ public class HtmlCleanerBookProcessorTest extends TestCase {
 		try {
 			Resource resource = new Resource(testInput.getBytes(Constants.CHARACTER_ENCODING), "test.html");
 			book.getResources().add(resource);
-			HtmlCleanerBookProcessor htmlCleanerBookProcessor = new HtmlCleanerBookProcessor();
+			Epub2HtmlCleanerBookProcessor htmlCleanerBookProcessor = new Epub2HtmlCleanerBookProcessor();
 			byte[] processedHtml = htmlCleanerBookProcessor.processHtml(resource, book, Constants.CHARACTER_ENCODING);
 			String actualResult = new String(processedHtml, Constants.CHARACTER_ENCODING);
 			assertEquals(expectedResult, actualResult);
@@ -33,7 +33,7 @@ public class HtmlCleanerBookProcessorTest extends TestCase {
 		try {
 			Resource resource = new Resource(testInput.getBytes(Constants.CHARACTER_ENCODING), "test.html");
 			book.getResources().add(resource);
-			HtmlCleanerBookProcessor htmlCleanerBookProcessor = new HtmlCleanerBookProcessor();
+			Epub2HtmlCleanerBookProcessor htmlCleanerBookProcessor = new Epub2HtmlCleanerBookProcessor();
 			byte[] processedHtml = htmlCleanerBookProcessor.processHtml(resource, book, Constants.CHARACTER_ENCODING);
 			String result = new String(processedHtml, Constants.CHARACTER_ENCODING);
 			assertEquals(Constants.DOCTYPE_XHTML + "\n" + testInput, result);
@@ -48,7 +48,7 @@ public class HtmlCleanerBookProcessorTest extends TestCase {
 		try {
 			Resource resource = new Resource(null, testInput.getBytes(Constants.CHARACTER_ENCODING), "test.html", MediatypeService.XHTML, Constants.CHARACTER_ENCODING);
 			book.getResources().add(resource);
-			HtmlCleanerBookProcessor htmlCleanerBookProcessor = new HtmlCleanerBookProcessor();
+			Epub2HtmlCleanerBookProcessor htmlCleanerBookProcessor = new Epub2HtmlCleanerBookProcessor();
 			byte[] processedHtml = htmlCleanerBookProcessor.processHtml(resource, book, Constants.CHARACTER_ENCODING);
 			String result = new String(processedHtml, Constants.CHARACTER_ENCODING);
 			assertEquals(Constants.DOCTYPE_XHTML + "\n" + testInput, result);
@@ -64,7 +64,7 @@ public class HtmlCleanerBookProcessorTest extends TestCase {
 		try {
 			Resource resource = new Resource(testInput.getBytes(Constants.CHARACTER_ENCODING), "test.html");
 			book.getResources().add(resource);
-			HtmlCleanerBookProcessor htmlCleanerBookProcessor = new HtmlCleanerBookProcessor();
+			Epub2HtmlCleanerBookProcessor htmlCleanerBookProcessor = new Epub2HtmlCleanerBookProcessor();
 			byte[] processedHtml = htmlCleanerBookProcessor.processHtml(resource, book, Constants.CHARACTER_ENCODING);
 			String actualResult = new String(processedHtml, Constants.CHARACTER_ENCODING);
 			assertEquals(expectedResult, actualResult);
@@ -81,7 +81,7 @@ public class HtmlCleanerBookProcessorTest extends TestCase {
 		try {
 			Resource resource = new Resource(testInput.getBytes(Constants.CHARACTER_ENCODING), "test.html");
 			book.getResources().add(resource);
-			HtmlCleanerBookProcessor htmlCleanerBookProcessor = new HtmlCleanerBookProcessor();
+			Epub2HtmlCleanerBookProcessor htmlCleanerBookProcessor = new Epub2HtmlCleanerBookProcessor();
 			byte[] processedHtml = htmlCleanerBookProcessor.processHtml(resource, book, Constants.CHARACTER_ENCODING);
 			String actualResult = new String(processedHtml, Constants.CHARACTER_ENCODING);
 			assertEquals(expectedResult, actualResult);
@@ -97,7 +97,7 @@ public class HtmlCleanerBookProcessorTest extends TestCase {
 		try {
 			Resource resource = new Resource(testInput.getBytes(Constants.CHARACTER_ENCODING), "test.html");
 			book.getResources().add(resource);
-			HtmlCleanerBookProcessor htmlCleanerBookProcessor = new HtmlCleanerBookProcessor();
+			Epub2HtmlCleanerBookProcessor htmlCleanerBookProcessor = new Epub2HtmlCleanerBookProcessor();
 			byte[] processedHtml = htmlCleanerBookProcessor.processHtml(resource, book, Constants.CHARACTER_ENCODING);
 			String actualResult = new String(processedHtml, Constants.CHARACTER_ENCODING);
 			assertEquals(expectedResult, actualResult);
@@ -113,7 +113,7 @@ public class HtmlCleanerBookProcessorTest extends TestCase {
 		try {
 			Resource resource = new Resource(testInput.getBytes(Constants.CHARACTER_ENCODING), "test.html");
 			book.getResources().add(resource);
-			HtmlCleanerBookProcessor htmlCleanerBookProcessor = new HtmlCleanerBookProcessor();
+			Epub2HtmlCleanerBookProcessor htmlCleanerBookProcessor = new Epub2HtmlCleanerBookProcessor();
 			byte[] processedHtml = htmlCleanerBookProcessor.processHtml(resource, book, Constants.CHARACTER_ENCODING);
 			String actualResult = new String(processedHtml, Constants.CHARACTER_ENCODING);
 			assertEquals(expectedResult, actualResult);
@@ -129,7 +129,7 @@ public class HtmlCleanerBookProcessorTest extends TestCase {
 		try {
 			Resource resource = new Resource(testInput.getBytes(Constants.CHARACTER_ENCODING), "test.html");
 			book.getResources().add(resource);
-			HtmlCleanerBookProcessor htmlCleanerBookProcessor = new HtmlCleanerBookProcessor();
+			Epub2HtmlCleanerBookProcessor htmlCleanerBookProcessor = new Epub2HtmlCleanerBookProcessor();
 			byte[] processedHtml = htmlCleanerBookProcessor.processHtml(resource, book, Constants.CHARACTER_ENCODING);
 			String actualResult = new String(processedHtml, Constants.CHARACTER_ENCODING);
 			assertEquals(expectedResult, actualResult);
@@ -143,7 +143,7 @@ public class HtmlCleanerBookProcessorTest extends TestCase {
 		try {
 			Resource resource = new Resource(null, testInput.getBytes(Constants.CHARACTER_ENCODING), "test.html", MediatypeService.XHTML, Constants.CHARACTER_ENCODING);
 			book.getResources().add(resource);
-			HtmlCleanerBookProcessor htmlCleanerBookProcessor = new HtmlCleanerBookProcessor();
+			Epub2HtmlCleanerBookProcessor htmlCleanerBookProcessor = new Epub2HtmlCleanerBookProcessor();
 			byte[] processedHtml = htmlCleanerBookProcessor.processHtml(resource, book, Constants.CHARACTER_ENCODING);
 			String result = new String(processedHtml, Constants.CHARACTER_ENCODING);
 			assertEquals(Constants.DOCTYPE_XHTML + "\n" + testInput, result);
