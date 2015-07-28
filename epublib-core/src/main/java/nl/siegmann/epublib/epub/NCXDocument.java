@@ -12,7 +12,7 @@ import java.util.zip.ZipOutputStream;
 import javax.xml.stream.FactoryConfigurationError;
 
 import nl.siegmann.epublib.Constants;
-import nl.siegmann.epublib.domain.Author;
+import nl.siegmann.epublib.domain.CreatorContributor;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Identifier;
 import nl.siegmann.epublib.domain.Resource;
@@ -180,7 +180,7 @@ public class NCXDocument {
 	public static Resource createNCXResource(Book book) throws IllegalArgumentException, IllegalStateException, IOException {
 		return createNCXResource(book.getMetadata().getIdentifiers(), book.getTitle(), book.getMetadata().getAuthors(), book.getTableOfContents());
 	}
-	public static Resource createNCXResource(List<Identifier> identifiers, String title, List<Author> authors, TableOfContents tableOfContents) throws IllegalArgumentException, IllegalStateException, IOException {
+	public static Resource createNCXResource(List<Identifier> identifiers, String title, List<CreatorContributor> authors, TableOfContents tableOfContents) throws IllegalArgumentException, IllegalStateException, IOException {
 		ByteArrayOutputStream data = new ByteArrayOutputStream();
 		XmlSerializer out = EpubProcessorSupport.createXmlSerializer(data);
 		write(out, identifiers, title, authors, tableOfContents);
@@ -188,7 +188,7 @@ public class NCXDocument {
 		return resource;
 	}	
 	
-	public static void write(XmlSerializer serializer, List<Identifier> identifiers, String title, List<Author> authors, TableOfContents tableOfContents) throws IllegalArgumentException, IllegalStateException, IOException {
+	public static void write(XmlSerializer serializer, List<Identifier> identifiers, String title, List<CreatorContributor> authors, TableOfContents tableOfContents) throws IllegalArgumentException, IllegalStateException, IOException {
 		serializer.startDocument(Constants.CHARACTER_ENCODING, false);
 		serializer.setPrefix(Epub2Writer.EMPTY_NAMESPACE_PREFIX, NAMESPACE_NCX);
 		serializer.startTag(NAMESPACE_NCX, NCXTags.ncx);
@@ -215,7 +215,7 @@ public class NCXDocument {
 		serializer.endTag(NAMESPACE_NCX, NCXTags.text);
 		serializer.endTag(NAMESPACE_NCX, NCXTags.docTitle);
 		
-		for(Author author: authors) {
+		for(CreatorContributor author: authors) {
 			serializer.startTag(NAMESPACE_NCX, NCXTags.docAuthor);
 			serializer.startTag(NAMESPACE_NCX, NCXTags.text);
 			serializer.text(author.getLastname() + ", " + author.getFirstname());

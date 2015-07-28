@@ -1,7 +1,6 @@
 package nl.siegmann.epublib.epub;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,10 +11,11 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import nl.siegmann.epublib.Constants;
-import nl.siegmann.epublib.domain.Author;
+import nl.siegmann.epublib.domain.CreatorContributor;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Date;
 import nl.siegmann.epublib.domain.Identifier;
+import nl.siegmann.epublib.domain.Relator;
 import nl.siegmann.epublib.util.StringUtil;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -57,36 +57,52 @@ public class Epub3PackageDocumentMetadataWriter extends PackageDocumentBase {
         list.add(book.getMetadata().getLanguage());
         writeSimpleMetdataElements(DCTags.language, list, serializer);
 
-        // write authors
-        for (int i = 0; i < book.getMetadata().getAuthors().size(); i++) {
-            Author author = book.getMetadata().getAuthors().get(i);
+        // write creators
+        for (int i = 0; i < book.getMetadata().getCreators().size(); i++) {
+            CreatorContributor creator = book.getMetadata().getCreators().get(i);
             serializer.startTag(NAMESPACE_DUBLIN_CORE, DCTags.creator);
-            //serializer.attribute(NAMESPACE_OPF, OPFAttributes.role, author.getRelator().getCode());
-            serializer.attribute(null, "id", "aut" + i);
-            serializer.text(author.getFirstname() + " " + author.getLastname());
+            serializer.attribute(null, "id", "cre" + i);
+            serializer.text(creator.getFirstname() + " " + creator.getLastname());
             serializer.endTag(NAMESPACE_DUBLIN_CORE, DCTags.creator);
 
-            serializer.startTag(null, "meta");
-            serializer.attribute(null, "refines", "#aut" + i);
-            serializer.attribute(null, "property", OPFAttributes.role);
-            serializer.attribute(null, "scheme", PREFIX_MARC + ":" + "relators");
-            serializer.text("Aut");
-            serializer.endTag(null, "meta");
+            for (Relator relator : creator.getRelators()) {
+                serializer.startTag(null, "meta");
+                serializer.attribute(null, "refines", "#cre" + i);
+                serializer.attribute(null, "property", OPFAttributes.role);
+                serializer.attribute(null, "scheme", PREFIX_MARC + ":" + "relators");
+                serializer.text(relator.getCode());
+                serializer.endTag(null, "meta");
+            }
 
             serializer.startTag(null, "meta");
-            serializer.attribute(null, "refines", "#aut" + i);
+            serializer.attribute(null, "refines", "#cre" + i);
             serializer.attribute(null, "property", OPFAttributes.file_as);
-            serializer.text(author.getLastname() + ", " + author.getFirstname());
+            serializer.text(creator.getLastname() + ", " + creator.getFirstname());
             serializer.endTag(null, "meta");
         }
 
         // write contributors
-        for (Author author : book.getMetadata().getContributors()) {
+        for (int i = 0; i < book.getMetadata().getContributors().size(); i++) {
+            CreatorContributor contributor = book.getMetadata().getContributors().get(i);
             serializer.startTag(NAMESPACE_DUBLIN_CORE, DCTags.contributor);
-            serializer.attribute(NAMESPACE_OPF, OPFAttributes.role, author.getRelator().getCode());
-            serializer.attribute(NAMESPACE_OPF, OPFAttributes.file_as, author.getLastname() + ", " + author.getFirstname());
-            serializer.text(author.getFirstname() + " " + author.getLastname());
+            serializer.attribute(null, "id", "con" + i);
+            serializer.text(contributor.getFirstname() + " " + contributor.getLastname());
             serializer.endTag(NAMESPACE_DUBLIN_CORE, DCTags.contributor);
+
+            for (Relator relator : contributor.getRelators()) {
+                serializer.startTag(null, "meta");
+                serializer.attribute(null, "refines", "#con" + i);
+                serializer.attribute(null, "property", OPFAttributes.role);
+                serializer.attribute(null, "scheme", PREFIX_MARC + ":" + "relators");
+                serializer.text(relator.getCode());
+                serializer.endTag(null, "meta");
+            }
+
+            serializer.startTag(null, "meta");
+            serializer.attribute(null, "refines", "#con" + i);
+            serializer.attribute(null, "property", OPFAttributes.file_as);
+            serializer.text(contributor.getLastname() + ", " + contributor.getFirstname());
+            serializer.endTag(null, "meta");
         }
 
         // write dates

@@ -9,7 +9,7 @@ import nl.siegmann.epublib.bookprocessor.CoverpageBookProcessor;
 import nl.siegmann.epublib.bookprocessor.DefaultBookProcessorPipeline;
 import nl.siegmann.epublib.bookprocessor.XslBookProcessor;
 import nl.siegmann.epublib.chm.ChmParser;
-import nl.siegmann.epublib.domain.Author;
+import nl.siegmann.epublib.domain.CreatorContributor;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Identifier;
 import nl.siegmann.epublib.domain.Resource;
@@ -115,18 +115,18 @@ public class Fileset2Epub {
 		if(authorNames == null || authorNames.isEmpty()) {
 			return;
 		}
-		List<Author> authorObjects = new ArrayList<Author>();
+		List<CreatorContributor> authorObjects = new ArrayList<CreatorContributor>();
 		for(String authorName: authorNames) {
 			String[] authorNameParts = authorName.split(",");
-			Author authorObject = null;
+			CreatorContributor authorObject = null;
 			if(authorNameParts.length > 1) {
-				authorObject = new Author(authorNameParts[1], authorNameParts[0]);
+				authorObject = new CreatorContributor(authorNameParts[1], authorNameParts[0]);
 			} else if(authorNameParts.length > 0) {
-				authorObject = new Author(authorNameParts[0]);
+				authorObject = new CreatorContributor(authorNameParts[0]);
 			}
 			authorObjects.add(authorObject);
 		}
-		book.getMetadata().setAuthors(authorObjects);
+		book.getMetadata().setCreators(authorObjects);
 	}
 
 

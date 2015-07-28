@@ -2,7 +2,7 @@ package nl.siegmann.epublib.epub;
 
 import java.io.FileOutputStream;
 
-import nl.siegmann.epublib.domain.Author;
+import nl.siegmann.epublib.domain.CreatorContributor;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.domain.TOCReference;
@@ -17,7 +17,7 @@ public class Simple1 {
             book.getMetadata().addTitle("Epublib test book 1");
 
             // Add an Author
-            book.getMetadata().addAuthor(new Author("Joe", "Tester"));
+            book.getMetadata().addCreator(new CreatorContributor("Joe", "Tester"));
 
             // Set cover image
             book.setCoverImage(new Resource(Simple1.class.getResourceAsStream("/book1/test_cover.png"), "cover.png"));

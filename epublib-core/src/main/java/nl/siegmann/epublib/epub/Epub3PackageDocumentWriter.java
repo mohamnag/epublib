@@ -78,7 +78,6 @@ public class Epub3PackageDocumentWriter extends PackageDocumentBase {
      */
     private static void writeSpine(Book book, Epub3Writer epubWriter, XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
         serializer.startTag(null, OPFTags.spine);
-        //serializer.attribute(Epub3Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.toc, "toc");
 
         if (book.getCoverPage() != null // there is a cover page
                 && book.getSpine().findFirstResourceById(book.getCoverPage().getId()) < 0) { // cover page is not already in the spine
@@ -96,12 +95,6 @@ public class Epub3PackageDocumentWriter extends PackageDocumentBase {
     private static void writeManifest(Book book, Epub3Writer epubWriter, XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException, ParserConfigurationException, SAXException {
         serializer.startTag(null, OPFTags.manifest);
 
-//        serializer.startTag(null, OPFTags.item);
-//        serializer.attribute(Epub3Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.id, epubWriter.getNcxId());
-//        serializer.attribute(Epub3Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.href, epubWriter.getNcxHref());
-//        serializer.attribute(Epub3Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.media_type, epubWriter.getNcxMediaType());
-//        serializer.endTag(null, OPFTags.item);
-//		writeCoverResources(book, serializer);
         for (Resource resource : getAllResourcesSortById(book)) {
             writeItem(book, resource, serializer);
         }
@@ -156,19 +149,36 @@ public class Epub3PackageDocumentWriter extends PackageDocumentBase {
         }
 
         boolean isScripted = false;
+
         if (resource.getMediaType() == MediatypeService.XHTML) {
             Document d = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(resource.getInputStream());
             NodeList l = d.getElementsByTagName("script");
             isScripted = (l.getLength() > 0);
         }
 
+        boolean isCoverImage = resource.equals(book.getCoverImage());
+
         serializer.startTag(null, OPFTags.item);
         serializer.attribute(Epub3Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.id, resource.getId());
         serializer.attribute(Epub3Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.href, resource.getHref());
         serializer.attribute(Epub3Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.media_type, resource.getMediaType().getName());
-        
-        if(isScripted) {
-            serializer.attribute(Epub3Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.properties, "scripted");
+
+        String properties = null;
+
+        if (isScripted) {
+            properties = "scripted";
+        }
+
+        if (isCoverImage) {
+            if (properties == null) {
+                properties = "cover-image";
+            } else {
+                properties += " cover-image";
+            }
+        }
+
+        if (properties != null) {
+            serializer.attribute(Epub3Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.properties, properties);
         }
 
         serializer.endTag(null, OPFTags.item);

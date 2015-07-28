@@ -85,4 +85,10 @@ public class PackageDocumentBase {
         String no = "no";
         String generator = "generator";
     }
+    
+    protected interface RoleTags {
+        String author = "aut";
+        String illustrator = "ill";
+        
+    }
 }

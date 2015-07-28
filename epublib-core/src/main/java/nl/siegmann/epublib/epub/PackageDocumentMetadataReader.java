@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import nl.siegmann.epublib.domain.Author;
+import nl.siegmann.epublib.domain.CreatorContributor;
 import nl.siegmann.epublib.domain.Date;
 import nl.siegmann.epublib.domain.Identifier;
 import nl.siegmann.epublib.domain.Metadata;
@@ -47,7 +47,7 @@ class PackageDocumentMetadataReader extends PackageDocumentBase {
 		result.setTypes(DOMUtil.getElementsTextChild(metadataElement, NAMESPACE_DUBLIN_CORE, DCTags.type));
 		result.setSubjects(DOMUtil.getElementsTextChild(metadataElement, NAMESPACE_DUBLIN_CORE, DCTags.subject));
 		result.setIdentifiers(readIdentifiers(metadataElement));
-		result.setAuthors(readCreators(metadataElement));
+		result.setCreators(readCreators(metadataElement));
 		result.setContributors(readContributors(metadataElement));
 		result.setDates(readDates(metadataElement));
         result.setOtherProperties(readOtherProperties(metadataElement));
@@ -113,20 +113,20 @@ class PackageDocumentMetadataReader extends PackageDocumentBase {
 		return result;
 	}
 		
-	private static List<Author> readCreators(Element metadataElement) {
+	private static List<CreatorContributor> readCreators(Element metadataElement) {
 		return readAuthors(DCTags.creator, metadataElement);
 	}
 	
-	private static List<Author> readContributors(Element metadataElement) {
+	private static List<CreatorContributor> readContributors(Element metadataElement) {
 		return readAuthors(DCTags.contributor, metadataElement);
 	}
 	
-	private static List<Author> readAuthors(String authorTag, Element metadataElement) {
+	private static List<CreatorContributor> readAuthors(String authorTag, Element metadataElement) {
 		NodeList elements = metadataElement.getElementsByTagNameNS(NAMESPACE_DUBLIN_CORE, authorTag);
-		List<Author> result = new ArrayList<Author>(elements.getLength());
+		List<CreatorContributor> result = new ArrayList<CreatorContributor>(elements.getLength());
 		for(int i = 0; i < elements.getLength(); i++) {
 			Element authorElement = (Element) elements.item(i);
-			Author author = createAuthor(authorElement);
+			CreatorContributor author = createAuthor(authorElement);
 			if (author != null) {
 				result.add(author);
 			}
@@ -152,19 +152,19 @@ class PackageDocumentMetadataReader extends PackageDocumentBase {
 		
 	}
 
-	private static Author createAuthor(Element authorElement) {
+	private static CreatorContributor createAuthor(Element authorElement) {
 		String authorString = DOMUtil.getTextChildrenContent(authorElement);
 		if (StringUtil.isBlank(authorString)) {
 			return null;
 		}
 		int spacePos = authorString.lastIndexOf(' ');
-		Author result;
+		CreatorContributor result;
 		if(spacePos < 0) {
-			result = new Author(authorString);
+			result = new CreatorContributor(authorString);
 		} else {
-			result = new Author(authorString.substring(0, spacePos), authorString.substring(spacePos + 1));
+			result = new CreatorContributor(authorString.substring(0, spacePos), authorString.substring(spacePos + 1));
 		}
-		result.setRole(authorElement.getAttributeNS(NAMESPACE_OPF, OPFAttributes.role));
+		result.addRoleByCode(authorElement.getAttributeNS(NAMESPACE_OPF, OPFAttributes.role));
 		return result;
 	}
 	

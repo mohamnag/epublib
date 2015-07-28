@@ -7,10 +7,11 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import nl.siegmann.epublib.Constants;
-import nl.siegmann.epublib.domain.Author;
+import nl.siegmann.epublib.domain.CreatorContributor;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Date;
 import nl.siegmann.epublib.domain.Identifier;
+import nl.siegmann.epublib.domain.Relator;
 import nl.siegmann.epublib.util.StringUtil;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -41,18 +42,18 @@ public class Epub2PackageDocumentMetadataWriter extends PackageDocumentBase {
 		writeSimpleMetdataElements(DCTags.rights, book.getMetadata().getRights(), serializer);
 
 		// write authors
-		for(Author author: book.getMetadata().getAuthors()) {
+		for(CreatorContributor author: book.getMetadata().getAuthors()) {
 			serializer.startTag(NAMESPACE_DUBLIN_CORE, DCTags.creator);
-			serializer.attribute(NAMESPACE_OPF, OPFAttributes.role, author.getRelator().getCode());
+			serializer.attribute(NAMESPACE_OPF, OPFAttributes.role, Relator.AUTHOR.getCode());
 			serializer.attribute(NAMESPACE_OPF, OPFAttributes.file_as, author.getLastname() + ", " + author.getFirstname());
 			serializer.text(author.getFirstname() + " " + author.getLastname());
 			serializer.endTag(NAMESPACE_DUBLIN_CORE, DCTags.creator);
 		}
 
 		// write contributors
-		for(Author author: book.getMetadata().getContributors()) {
+		for(CreatorContributor author: book.getMetadata().getContributors()) {
 			serializer.startTag(NAMESPACE_DUBLIN_CORE, DCTags.contributor);
-			serializer.attribute(NAMESPACE_OPF, OPFAttributes.role, author.getRelator().getCode());
+			serializer.attribute(NAMESPACE_OPF, OPFAttributes.role, author.getRelators().get(0).getCode());
 			serializer.attribute(NAMESPACE_OPF, OPFAttributes.file_as, author.getLastname() + ", " + author.getFirstname());
 			serializer.text(author.getFirstname() + " " + author.getLastname());
 			serializer.endTag(NAMESPACE_DUBLIN_CORE, DCTags.contributor);
