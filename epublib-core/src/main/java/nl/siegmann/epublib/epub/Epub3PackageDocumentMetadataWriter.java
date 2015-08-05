@@ -43,6 +43,9 @@ public class Epub3PackageDocumentMetadataWriter extends PackageDocumentBase {
         writeSimpleMetdataElements(DCTags.publisher, book.getMetadata().getPublishers(), serializer);
         writeSimpleMetdataElements(DCTags.type, book.getMetadata().getTypes(), serializer);
         writeSimpleMetdataElements(DCTags.rights, book.getMetadata().getRights(), serializer);
+        writeSimpleMetdataElements(DCTags.coverage, book.getMetadata().getCoverages(), serializer);
+        writeSimpleMetdataElements(DCTags.relation, book.getMetadata().getRelations(), serializer);
+        writeSimpleMetdataElements(DCTags.source, book.getMetadata().getSources(), serializer);
 
         Calendar today = new GregorianCalendar();
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-mm-dd");
@@ -145,6 +148,12 @@ public class Epub3PackageDocumentMetadataWriter extends PackageDocumentBase {
         serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.name, OPFValues.generator);
         serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.content, Constants.EPUBLIB_GENERATOR_NAME);
         serializer.endTag(NAMESPACE_OPF, OPFTags.meta);
+        
+        // write coverages
+
+        // write sources
+        
+        // write relations
 
         serializer.endTag(null, OPFTags.metadata);
     }

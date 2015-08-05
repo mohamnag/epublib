@@ -1,6 +1,5 @@
 package nl.siegmann.epublib.epub;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,9 +12,6 @@ import javax.xml.stream.XMLStreamException;
 
 import nl.siegmann.epublib.Constants;
 import nl.siegmann.epublib.domain.Book;
-import nl.siegmann.epublib.domain.Guide;
-import nl.siegmann.epublib.domain.GuideReference;
-import nl.siegmann.epublib.domain.MediaType;
 import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.domain.Spine;
 import nl.siegmann.epublib.domain.SpineReference;
@@ -209,38 +205,5 @@ public class Epub3PackageDocumentWriter extends PackageDocumentBase {
             }
             serializer.endTag(null, OPFTags.itemref);
         }
-    }
-
-    private static void writeGuide(Book book, Epub3Writer epubWriter, XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
-        serializer.startTag(null, OPFTags.guide);
-        //ensureCoverPageGuideReferenceWritten(book.getGuide(), epubWriter, serializer);
-        for (GuideReference reference : book.getGuide().getReferences()) {
-            writeGuideReference(reference, serializer);
-        }
-        serializer.endTag(null, OPFTags.guide);
-    }
-
-    private static void ensureCoverPageGuideReferenceWritten(Guide guide,
-            Epub2Writer epubWriter, XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
-        if (!(guide.getGuideReferencesByType(GuideReference.COVER).isEmpty())) {
-            return;
-        }
-        Resource coverPage = guide.getCoverPage();
-        if (coverPage != null) {
-            writeGuideReference(new GuideReference(guide.getCoverPage(), GuideReference.COVER, GuideReference.COVER), serializer);
-        }
-    }
-
-    private static void writeGuideReference(GuideReference reference, XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException {
-        if (reference == null) {
-            return;
-        }
-        serializer.startTag(NAMESPACE_OPF, OPFTags.reference);
-        serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.type, reference.getType());
-        serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.href, reference.getCompleteHref());
-        if (StringUtil.isNotBlank(reference.getTitle())) {
-            serializer.attribute(Epub2Writer.EMPTY_NAMESPACE_PREFIX, OPFAttributes.title, reference.getTitle());
-        }
-        serializer.endTag(NAMESPACE_OPF, OPFTags.reference);
     }
 }
