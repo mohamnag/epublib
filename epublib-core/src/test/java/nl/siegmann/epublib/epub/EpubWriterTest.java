@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import nl.siegmann.epublib.domain.Author;
+import nl.siegmann.epublib.domain.CreatorContributor;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.GuideReference;
 import nl.siegmann.epublib.domain.Identifier;
@@ -64,14 +64,14 @@ public class EpubWriterTest {
 	public void testWritingBookWithCoverWithNullId() throws FileNotFoundException, IOException {
 		Book book = new Book();
 	    book.getMetadata().addTitle("Epub test book 1");
-	    book.getMetadata().addAuthor(new Author("Joe", "Tester"));
+	    book.getMetadata().addCreator(new CreatorContributor("Joe", "Tester"));
 	    InputStream is = this.getClass().getResourceAsStream("/book1/cover.png");
 	    book.setCoverImage(new Resource(is, "cover.png"));
 	    // Add Chapter 1
 	    InputStream is1 = this.getClass().getResourceAsStream("/book1/chapter1.html");
 	    book.addSection("Introduction", new Resource(is1, "chapter1.html"));
 	
-	    EpubWriter epubWriter = new EpubWriter();
+	    Epub2Writer epubWriter = new Epub2Writer();
 	    epubWriter.write(book, new FileOutputStream("test1_book1.epub"));
 	}
 	
@@ -82,7 +82,7 @@ public class EpubWriterTest {
 		book.getMetadata().addTitle("test2");
 		
 		book.getMetadata().addIdentifier(new Identifier(Identifier.Scheme.ISBN, "987654321"));
-		book.getMetadata().addAuthor(new Author("Joe", "Tester"));
+		book.getMetadata().addCreator(new CreatorContributor("Joe", "Tester"));
 		book.setCoverPage(new Resource(this.getClass().getResourceAsStream("/book1/cover.html"), "cover.html"));
 		book.setCoverImage(new Resource(this.getClass().getResourceAsStream("/book1/cover.png"), "cover.png"));
 		book.addSection("Chapter 1", new Resource(this.getClass().getResourceAsStream("/book1/chapter1.html"), "chapter1.html"));
@@ -96,7 +96,7 @@ public class EpubWriterTest {
 	
 
 	private byte[] writeBookToByteArray(Book book) throws IOException {
-		EpubWriter epubWriter = new EpubWriter();
+		Epub2Writer epubWriter = new Epub2Writer();
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		epubWriter.write(book, out);

@@ -31,7 +31,7 @@ import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.epub.BookProcessor;
 import nl.siegmann.epublib.epub.BookProcessorPipeline;
 import nl.siegmann.epublib.epub.EpubReader;
-import nl.siegmann.epublib.epub.EpubWriter;
+import nl.siegmann.epublib.epub.Epub2Writer;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -190,7 +190,7 @@ public class Viewer {
 					previousDir = selectedFile.getParentFile();
 				}
 				try {
-					(new EpubWriter()).write(navigator.getBook(), new FileOutputStream(selectedFile));
+					(new Epub2Writer()).write(navigator.getBook(), new FileOutputStream(selectedFile));
 				} catch (Exception e1) {
 					log.error(e1.getMessage(), e1);
 				}

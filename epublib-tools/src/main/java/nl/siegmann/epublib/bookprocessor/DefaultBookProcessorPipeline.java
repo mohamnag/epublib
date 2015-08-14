@@ -31,7 +31,7 @@ public class DefaultBookProcessorPipeline extends BookProcessorPipeline {
 		List<BookProcessor> result = new ArrayList<BookProcessor>();
 		result.addAll(Arrays.asList(new BookProcessor[] {
 			new SectionHrefSanityCheckBookProcessor(),
-			new HtmlCleanerBookProcessor(),
+			new Epub2HtmlCleanerBookProcessor(),
 			new CoverpageBookProcessor(),
 			new FixIdentifierBookProcessor()
 		}));

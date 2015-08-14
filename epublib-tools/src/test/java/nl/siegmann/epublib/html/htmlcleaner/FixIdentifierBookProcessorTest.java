@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import nl.siegmann.epublib.bookprocessor.FixIdentifierBookProcessor;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Identifier;
-import nl.siegmann.epublib.epub.EpubWriter;
+import nl.siegmann.epublib.epub.Epub2Writer;
 import nl.siegmann.epublib.util.CollectionUtil;
 
 public class FixIdentifierBookProcessorTest extends TestCase {
