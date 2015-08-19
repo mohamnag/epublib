@@ -15,7 +15,7 @@
     <parent>
         <groupId>eu.freme</groupId>
         <artifactId>epublib-parent</artifactId>
-        <version>3.1</version>
+        <version>0.3-SNAPSHOT</version>
         <relativePath>../epublib-parent/pom.xml</relativePath>
     </parent>
 
@@ -92,19 +92,42 @@
             </plugin>
         </plugins>
     </reporting>
-    <repositories>
-        <repository>
-            <id>maven</id>
-            <url>http://repo1.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>jboss</id>
-            <url>https://repository.jboss.org/nexus/</url>
-        </repository>
-        <repository>
-            <id>net.java.repository</id>
-            <name>Java.net repository</name>
-            <url>http://download.java.net/maven/2/</url>
-        </repository>
-    </repositories>
+    <distributionManagement>
+		<repository>
+			<id>freme-nexus</id>
+			<name>Internal Releases</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>freme-nexus</id>
+			<name>Internal Releases</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>freme-release</id>
+			<name>freme-nexus</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>freme-nexus</id>
+			<name>freme-nexus</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<scm>
+		<connection>scm:git:git@github.com:freme-project/epublib.git</connection>
+		<url>scm:git:git@github.com/freme-project:epublib.git</url>
+		<developerConnection>scm:git:git@github.com:freme-project/epublib.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 </project>
