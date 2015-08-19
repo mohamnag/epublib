@@ -42,24 +42,6 @@
 		</developer>
 	</developers>
 
-	<issueManagement>
-		<system>github</system>
-		<url>http://github.com/psiegman/epublib/issues</url>
-	</issueManagement>
-
-	<distributionManagement>
-		<repository>
-			<id>github.repo</id>
-			<url>file:///D:/private/project/git-maven-repo/mvn-repo/releases</url>
-		</repository>
-	</distributionManagement>
-
-	<scm>
-		<url>http://github.com/psiegman/epublib</url>
-		<connection>scm:git:https://psiegman@github.com/psiegman/epublib.git</connection>
-		<developerConnection>scm:git:https://psiegman@github.com/psiegman/epublib.git</developerConnection>
-	</scm>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -111,14 +93,42 @@
 			</plugin>
 		</plugins>
 	</reporting>
+    <distributionManagement>
+		<repository>
+			<id>freme-nexus</id>
+			<name>Internal Releases</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>freme-nexus</id>
+			<name>Internal Releases</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<repositories>
 		<repository>
-			<id>maven</id>
-			<url>http://repo1.maven.org/maven2/</url>
+			<id>freme-release</id>
+			<name>freme-nexus</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 		<repository>
-			<id>jboss</id>
-			<url>https://repository.jboss.org/nexus/</url>
+			<id>freme-nexus</id>
+			<name>freme-nexus</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
 		</repository>
 	</repositories>
+
+	<scm>
+		<connection>scm:git:git@github.com:freme-project/epublib.git</connection>
+		<url>scm:git:git@github.com/freme-project:epublib.git</url>
+		<developerConnection>scm:git:git@github.com:freme-project/epublib.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 </project>
