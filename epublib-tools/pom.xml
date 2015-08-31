@@ -15,7 +15,6 @@
     <parent>
         <groupId>eu.freme</groupId>
         <artifactId>epublib-parent</artifactId>
-        <version>0.1-SNAPSHOT</version>
         <relativePath>../epublib-parent/pom.xml</relativePath>
     </parent>
 
