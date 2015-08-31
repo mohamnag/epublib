@@ -10,12 +10,12 @@
     <description>A java library for reading/writing/manipulating epub files</description>
     <url>http://www.siegmann.nl/epublib</url>
     <inceptionYear>2009</inceptionYear>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
 	
     <parent>
         <groupId>eu.freme</groupId>
         <artifactId>epublib-parent</artifactId>
-        <version>0.1</version>
+        <version>0.2-SNAPSHOT</version>
         <relativePath>../epublib-parent/pom.xml</relativePath>
     </parent>
 
