@@ -19,8 +19,8 @@
 	</properties>
 
 	<modules>
-		<module>../epublib-core</module>
-		<module>../epublib-tools</module>
+		<module>epublib-core</module>
+		<module>epublib-tools</module>
 	</modules>
 
 	<licenses>
