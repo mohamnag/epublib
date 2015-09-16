@@ -8,3 +8,4 @@ epublib-tools/.project
 epublib-core/.settings
 epublib-tools/.settings/
 *~
+/target/

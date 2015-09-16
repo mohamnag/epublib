@@ -10,7 +10,7 @@
     <description>A java library for reading/writing/manipulating epub files</description>
     <url>http://www.siegmann.nl/epublib</url>
     <inceptionYear>2009</inceptionYear>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
 	
     <parent>
         <groupId>eu.freme</groupId>
@@ -23,7 +23,7 @@
         <dependency>
             <groupId>eu.freme</groupId>
             <artifactId>epublib-core</artifactId>
-            <version>0.1</version>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlcleaner</groupId>
