@@ -41,12 +41,24 @@ public class Epub2HtmlCleanerBookProcessor extends HtmlBookProcessor implements
     private static HtmlCleaner createHtmlCleaner() {
         HtmlCleaner result = new HtmlCleaner();
         CleanerProperties cleanerProperties = result.getProperties();
+        
+//        cleanerProperties.setOmitXmlDeclaration(true);
+//        cleanerProperties.setOmitDoctypeDeclaration(false);
+//        cleanerProperties.setRecognizeUnicodeChars(true);
+//        cleanerProperties.setTranslateSpecialEntities(false);
+//        cleanerProperties.setIgnoreQuestAndExclam(true);
+//        cleanerProperties.setUseEmptyElementTags(false);
+        
         cleanerProperties.setOmitXmlDeclaration(true);
         cleanerProperties.setOmitDoctypeDeclaration(false);
-        cleanerProperties.setRecognizeUnicodeChars(true);
-        cleanerProperties.setTranslateSpecialEntities(false);
+        //cleanerProperties.setRecognizeUnicodeChars(true);
+        cleanerProperties.setTranslateSpecialEntities(true);
+        cleanerProperties.setTransSpecialEntitiesToNCR(true);
         cleanerProperties.setIgnoreQuestAndExclam(true);
         cleanerProperties.setUseEmptyElementTags(false);
+        cleanerProperties.setAdvancedXmlEscape(true);
+        cleanerProperties.setTransResCharsToNCR(true);
+        
         return result;
     }
 
