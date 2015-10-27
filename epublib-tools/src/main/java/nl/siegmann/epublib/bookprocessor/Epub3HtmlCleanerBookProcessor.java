@@ -46,6 +46,8 @@ public class Epub3HtmlCleanerBookProcessor extends HtmlBookProcessor implements
         cleanerProperties.setTranslateSpecialEntities(false);
         cleanerProperties.setIgnoreQuestAndExclam(true);
         cleanerProperties.setUseEmptyElementTags(false);
+        cleanerProperties.setAdvancedXmlEscape(true);
+        cleanerProperties.setTransResCharsToNCR(true);
         
         return result;
     }
