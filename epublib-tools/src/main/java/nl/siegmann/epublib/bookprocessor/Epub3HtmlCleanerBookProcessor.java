@@ -40,9 +40,10 @@ public class Epub3HtmlCleanerBookProcessor extends HtmlBookProcessor implements
     private static HtmlCleaner createHtmlCleaner() {
         HtmlCleaner result = new HtmlCleaner();
         CleanerProperties cleanerProperties = result.getProperties();
+        
         cleanerProperties.setOmitXmlDeclaration(true);
         cleanerProperties.setOmitDoctypeDeclaration(false);
-        cleanerProperties.setRecognizeUnicodeChars(true);
+        //cleanerProperties.setRecognizeUnicodeChars(true);
         cleanerProperties.setTranslateSpecialEntities(false);
         cleanerProperties.setIgnoreQuestAndExclam(true);
         cleanerProperties.setUseEmptyElementTags(false);
