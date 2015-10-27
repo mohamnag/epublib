@@ -147,6 +147,7 @@ public class Epub3PackageDocumentWriter extends PackageDocumentBase {
         boolean isScripted = false;
 
         if (resource.getMediaType() == MediatypeService.XHTML) {
+            System.out.println(resource.getHref());
             Document d = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(resource.getInputStream());
             NodeList l = d.getElementsByTagName("script");
             isScripted = (l.getLength() > 0);

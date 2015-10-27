@@ -1,5 +1,6 @@
 package nl.siegmann.epublib.bookprocessor;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -40,24 +41,36 @@ public class Epub3HtmlCleanerBookProcessor extends HtmlBookProcessor implements
     private static HtmlCleaner createHtmlCleaner() {
         HtmlCleaner result = new HtmlCleaner();
         CleanerProperties cleanerProperties = result.getProperties();
-        
+
         cleanerProperties.setOmitXmlDeclaration(true);
         cleanerProperties.setOmitDoctypeDeclaration(false);
         //cleanerProperties.setRecognizeUnicodeChars(true);
-        cleanerProperties.setTranslateSpecialEntities(true);
-        cleanerProperties.setTransSpecialEntitiesToNCR(true);
+        cleanerProperties.setTranslateSpecialEntities(false);
+        //cleanerProperties.setTransSpecialEntitiesToNCR(true);
         cleanerProperties.setIgnoreQuestAndExclam(true);
         cleanerProperties.setUseEmptyElementTags(false);
         cleanerProperties.setAdvancedXmlEscape(true);
         cleanerProperties.setTransResCharsToNCR(true);
-        
+
         return result;
     }
 
     public byte[] processHtml(Resource resource, Book book, String outputEncoding) throws IOException {
 
+        BufferedReader in = new BufferedReader(resource.getReader());
+        String line;
+        StringBuilder rslt = new StringBuilder();
+        while ((line = in.readLine()) != null) {
+            rslt.append(line);
+        }
+        
+        String html = rslt.toString();
+        //System.out.println("console: " + resource.getHref() + " --- " + html);
+        
+        html = HTMLNameToHTMLNumberFixer.fix(html);
+
         // clean html
-        TagNode node = htmlCleaner.clean(resource.getReader());
+        TagNode node = htmlCleaner.clean(html);
 
         // post-process cleaned html
         node.addAttribute("xmlns", Constants.NAMESPACE_XHTML);
