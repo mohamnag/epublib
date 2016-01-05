@@ -40,12 +40,12 @@ public abstract class HtmlBookProcessor implements BookProcessor {
     }
 
     private void cleanupResource(Resource resource, Book book) throws IOException {
-        if (resource.getMediaType() == MediatypeService.XHTML) {
-            byte[] cleanedHtml = processHtml(resource, book, Constants.CHARACTER_ENCODING);
-            resource.setData(cleanedHtml);
-            resource.setInputEncoding(Constants.CHARACTER_ENCODING);
-            
+        if (resource.getMediaType() == MediatypeService.XHTML) {         
             if (FilenameUtils.getExtension(resource.getHref()).equals("html")) {
+                byte[] cleanedHtml = processHtml(resource, book, Constants.CHARACTER_ENCODING);
+                resource.setData(cleanedHtml);
+                resource.setInputEncoding(Constants.CHARACTER_ENCODING);
+                
                 String filename = resource.getHref();
                 filename = FilenameUtils.removeExtension(filename);
                 filename += ".xhtml";

@@ -9,13 +9,14 @@ import java.util.TreeSet;
 
 public class EpublibXmlSerializer extends SimpleXmlSerializer {
 
-    private String outputEncoding;
+    private final String outputEncoding;
 
     public EpublibXmlSerializer(CleanerProperties paramCleanerProperties, String outputEncoding) {
         super(paramCleanerProperties);
         this.outputEncoding = outputEncoding;
     }
 
+    @Override
     protected String escapeXml(String xmlContent) {
         return xmlContent;
     }
@@ -27,6 +28,7 @@ public class EpublibXmlSerializer extends SimpleXmlSerializer {
      * <li>if the tagNode is a meta tag setting the contentType then it sets the
      * encoding to the actual encoding</li>
      * </ul>
+     * @throws java.io.IOException
      */
     @Override
     protected void serializeOpenTag(TagNode tagNode, Writer writer, boolean newLine) throws IOException {
@@ -122,7 +124,7 @@ public class EpublibXmlSerializer extends SimpleXmlSerializer {
                 writer.write("\n");
             }
         } else if (dontEscape(tagNode)) {
-            writer.write("><![CDATA[");
+            writer.write(">/*<![CDATA[*/");
         } else {
             writer.write(">");
         }
@@ -131,5 +133,25 @@ public class EpublibXmlSerializer extends SimpleXmlSerializer {
     private boolean isMetaContentTypeTag(TagNode tagNode) {
         return tagNode.getName().equalsIgnoreCase("meta")
                 && "Content-Type".equalsIgnoreCase(tagNode.getAttributeByName("http-equiv"));
+    }
+    
+    @Override
+    protected void serializeCData(CData item, TagNode tagNode, Writer writer) throws IOException {
+        System.out.println(item.getContentWithoutStartAndEndTokens());
+        writer.write(item.getContentWithoutStartAndEndTokens());
+    }
+    
+    @Override
+    protected void serializeContentToken(ContentNode item,
+                                     TagNode tagNode,
+                                     Writer writer)
+                              throws IOException {
+        
+        if (dontEscape(tagNode)) {
+            //System.out.println(item.content);
+            writer.write(item.content);
+        } else {
+            super.serializeContentToken(item, tagNode, writer);
+        }
     }
 }
