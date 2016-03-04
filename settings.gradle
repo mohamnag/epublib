@@ -1,0 +1,6 @@
+rootProject.name = 'epublib-parent'
+include ':epublib-core'
+include ':epublib-tools'
+
+project(':epublib-core').projectDir = "$rootDir/epublib-core" as File
+project(':epublib-tools').projectDir = "$rootDir/epublib-tools" as File

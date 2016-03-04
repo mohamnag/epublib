@@ -1,0 +1,28 @@
+allprojects {
+    apply plugin: 'maven'
+
+    group = 'eu.freme'
+    version = '0.4-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+
+    task packageSources(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts.archives packageSources
+
+    repositories {
+        mavenLocal()
+
+        maven { url "http://rv1443.1blu.de/nexus/content/repositories/releases/" }
+        maven { url "http://rv1443.1blu.de/nexus/content/repositories/snapshots/" }
+        maven { url "http://repo.maven.apache.org/maven2" }
+    }
+
+}

@@ -1,5 +1,4 @@
 ﻿epublib-core/bin/
-epublib-core/bin/
 epublib-tools/bin/
 epublib-core/.classpath
 epublib-core/.project
@@ -9,3 +8,7 @@ epublib-core/.settings
 epublib-tools/.settings/
 *~
 /target/
+*.iml
+.gradle
+*/build/
+gradle-wrapper.jar
