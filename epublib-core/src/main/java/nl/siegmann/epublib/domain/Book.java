@@ -443,30 +443,6 @@ public class Book implements Serializable {
 	public String getTitle() {
 		return getMetadata().getFirstTitle();
 	}
-
-	public Identifier getUniqueId() {
-
-		Identifier uniqueId = null;
-		List<Identifier> identifiers = getMetadata().getIdentifiers();
-
-		if (identifiers.size() > 0) {
-
-			for (Identifier id : identifiers) {
-				if (id.isBookId()) {
-					uniqueId = id;
-					break;
-				}
-			}
-
-			if (uniqueId == null) {
-				// Package does not have unique identifier set
-				uniqueId = identifiers.get(0);
-			}
-
-		}
-
-		return uniqueId;
-	}
 	
 	/**
 	 * The book's cover image.
